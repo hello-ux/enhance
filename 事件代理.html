@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>事件代理</title>
+</head>
+<body>
+  <div class="box">
+    <a href="#">这是a1</a><br/>
+    <a href="#">这是a2</a><br/>
+    <a href="#">这是a3</a><br/>
+    <a href="#">这是a4</a><br/>
+   
+  </div>
+  <script>
+   function bindEvent(type, elem,selector, fn) {
+     if(fn == null) {
+       fn = selector
+       selector = null
+     }
+    elem.addEventListener(type, event => {
+      var target = event.target
+      if (selector) {
+        if (target.matches(selector)) {
+          fn.call(target, event)
+        }
+      }else {
+        fn.call(target, event)
+      }
+     
+    })
+   }
+   var p1 = document.querySelector('.box').children[0]
+   bindEvent('click', p1, function(event) {
+     event.preventDefault()
+     event.stopPropagation()
+     alert(this.innerHTML)
+   })
+   var box = document.querySelector('.box')
+   bindEvent('click', box, 'a', function(event) {
+     event.stopPropagation()
+     event.preventDefault()
+     alert(this.innerHTML)
+   })
+  </script>
+</body>
+</html>

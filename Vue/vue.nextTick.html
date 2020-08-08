@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>vue</title>
+	<link rel="stylesheet" href="">
+</head>
+<body>
+	<div class="box" ref='aa'>{{text}}</div>
+	<script src="https://cn.vuejs.org/js/vue.js"></script>
+	<script>
+		var vm = new Vue({
+			data() {
+				return {
+					text: '原始值'
+				}
+			},
+			created() {
+				console.log(this)
+				let that = this
+				that.$nextTick(function() {
+					console.log(that.$refs)
+					that.$refs.box.inneHTML = 'created修改了内容'
+				})
+			},
+			methods: {
+				get: function() {
+					this.text('修改值')
+				}
+			}
+		})
+	</script>
+</body>
+</html>

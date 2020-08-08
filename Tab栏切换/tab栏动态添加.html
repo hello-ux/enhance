@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .box {
+      float: left;
+      margin: 100px 400px;
+    }
+    ul {
+      float: left;
+      margin: 0;
+    padding: 0;
+    }
+    ul li {
+      float: left;
+      border: 1px solid #f0f;
+      padding: 10px 20px;
+     margin-left: -1px;
+     list-style: none;
+    }
+    .active {
+      background-color: #ff0;
+    }
+    .content {
+      color: #a0a;
+      font-size: 20px;
+      font-weight: 700;
+    }
+    .content span {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <ul>
+      <li>tab1</li>
+      <li>tab2</li>
+      <li>tab3</li>
+    </ul>
+   <div class="content">
+     <span>item1</span>
+     <span>item2</span>
+     <span>item3</span>
+   </div>
+   <button  class="addBtn">添加</button >
+   <button class="deleteBtn">删除</button>
+  </div>
+  <script>
+    var ul = document.querySelector('ul')
+    var content = document.querySelector('.content')
+    var addBtn = document.querySelector('.addBtn')
+    var deleteBtn = document.querySelector('.deleteBtn')
+    var lis = ul.querySelectorAll('li')
+    var spans = document.querySelector('.content').querySelectorAll('span')
+    clickItem()
+    let num = 0
+    function getnum() {
+     var lis = ul.querySelectorAll('li')
+      num = lis.length
+      return num
+    }
+    addBtn.onclick = function() {
+     num = getnum()
+      var li = document.createElement('li')
+      var span = document.createElement('span')
+        li.innerHTML = `tab${num + 1}`
+        span.innerHTML = `item${num + 1}`
+        ul.appendChild(li)
+        content.appendChild(span)
+        clickItem()
+    }
+    
+    function clickItem() {
+     lis = ul.querySelectorAll('li')
+     spans = document.querySelector('.content').querySelectorAll('span')
+      for(let i = 0; i < lis.length; i++) {
+      lis[i].setAttribute('index', i)
+      lis[i].onclick = function() {
+        lis = ul.querySelectorAll('li')
+       spans = document.querySelector('.content').querySelectorAll('span')
+        for(i = 0; i < lis.length; i++) {
+          lis[i].className = ''
+        }
+        this.className = 'active'
+        var id = this.getAttribute('index')
+        for(j = 0; j < spans.length; j++) {
+          spans[j].style.display = 'none'
+        }
+        spans[id].style.display = "block" 
+      };
+    }
+    }
+ 
+  deleteBtn.onclick = function() {
+    let index = 0
+     lis = ul.querySelectorAll('li')
+     spans = document.querySelector('.content').querySelectorAll('span')
+   for(a = 0; a < lis.length; a++) {
+     if(lis[a].className == 'active') {
+       index = a
+     }
+   }
+   lis[index].remove()
+   spans[index].remove()
+    }
+    
+    
+  </script>
+</body>
+</html>

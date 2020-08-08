@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>对象的键和值</title>
+	<link rel="stylesheet" href="">
+	<script>
+		var obj = new Object()
+		obj.name = 'zhangshan'
+		obj.age = 12
+		console.log(obj)
+		console.log(Object.keys(obj)) // 输出name和age
+		console.log(obj['name'])
+		console.log(obj.name)
+		// 用构造函数创建对象
+		function Obj(ar1,ar2) {
+			this.name = ar1;
+			this.age = ar2;
+			this.sayhi = function() {
+				console.log(122)
+			}
+		}
+		var f1 = new Obj('zhangsan', 12)
+		f1.sayhi()
+		console.log(f1.name)
+	</script>
+</head>
+<body>
+	
+</body>
+</html>
