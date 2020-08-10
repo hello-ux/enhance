@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>vue组件</title>
+	<link rel="stylesheet" href="">
+</head>
+<body>
+	<div id="app">
+		<!-- 父组件通过自定义事件监听自组件传递的值 -->
+		<my-demo :title="msg" @enlarge-box="handle($event)"></my-demo>
+		<!-- <my-demo1></my-demo1> -->
+	</div>
+	<script src="./vue.min.js"></script>
+	<script>
+		var demo1 = {
+			template: `
+				<h3>btn1</h3>
+			`
+		}
+		var demo2 = {
+			template: `
+				<h3>btn2</h3>
+			`
+		}
+		var myDemo = {
+			props: ["title"],
+			data() {
+				return {
+					currentDemo: ''
+				}
+			},
+			mounted() {
+				console.log(this.title)
+			},
+			
+			// $emit后跟父组件自定义事件名和参数，向父组件传值
+			template: `
+			<div>
+				<input type="button" name="" value="提交" id="ipt1" @click="">
+				<input type="button" name="" :value="title" id='ipt2' @click="$emit('enlarge-box', 1)">
+				<component :is="currentDemo"></component>
+			</div>
+			`,
+			components: {
+				demo1,
+				demo2
+			} 
+
+		}
+		// 全局注册组件
+		// Vue.component('myDemo1', {
+		// 	data() {
+		// 		return {}
+		// 	},
+		// 	template: `
+		// 	<div>
+		// 		<input type="button" name="" value="添加">
+		// 	</div>
+		// 	`
+		// })
+
+		var vm = new Vue({
+			el: '#app',
+			data: {
+				msg: 1
+			},
+			components: {
+				myDemo
+			},
+			methods: {
+				// 父组件事件
+				handle: function(val) {
+
+					this.msg +=  val
+				}
+			},
+		})
+	</script>
+</body>
+</html>

@@ -5,30 +5,42 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<title>vue</title>
 	<link rel="stylesheet" href="">
+	<style>
+		[v-cloak] {
+			display: none
+		}
+	</style>
 </head>
 <body>
-	<div class="box" ref='aa'>{{text}}</div>
-	<script src="https://cn.vuejs.org/js/vue.js"></script>
+	<div id="app">
+		<div class="box" v-cloak>{{text}}</div>
+		<div class="box1">
+			box1
+		</div>
+	</div>
+	<script src="./vue.min.js"></script>
 	<script>
 		var vm = new Vue({
-			data() {
-				return {
-					text: '原始值'
-				}
+			el: '#app',
+			data: {
+				text: '原始值'
+			},
+			mounted() {
+				var box = document.querySelector('.box')
+				console.log(box)
+				box.innerHTML = '页面渲染之后'
+
 			},
 			created() {
-				console.log(this)
-				let that = this
-				that.$nextTick(function() {
-					console.log(that.$refs)
-					that.$refs.box.inneHTML = 'created修改了内容'
+				this.$nextTick(function() {
+					var box = document.querySelector('.box')
+					console.log(box)
+					console.log(111)
+					box.innerHTML = '页面渲染之前'
 				})
-			},
-			methods: {
-				get: function() {
-					this.text('修改值')
-				}
+
 			}
+						
 		})
 	</script>
 </body>
