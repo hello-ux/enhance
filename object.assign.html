@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>对象浅拷贝</title>
+</head>
+<body>
+  <script>
+    var obj = {
+      'name': 'zhangsan',
+      'age': 23,
+       'say': {
+         'num': 100
+       }
+    }
+    var obj1 = {
+      'name': 'zhaoliu',
+      'age': 22,
+      'say': {
+         'num': 100
+       }
+    }
+    var obj2 = {
+      'name': 'lisi',
+      'age': 23,
+      'sex': '男',
+      
+    }
+    // 拷贝的对象的引用，影响原对象
+    var objnew = Object.assign(obj)
+    console.log(objnew);
+    objnew.name = 'wangwu'
+    console.log(obj); // wangwu
+    console.log(objnew); // wangwu
+    Object.assign(obj1,obj2)
+    console.log(obj1);
+    console.log(obj2); // 不会拷贝Obj1里面的对象
+
+  </script>
+</body>
+</html>
