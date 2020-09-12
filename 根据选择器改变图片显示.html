@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    select {
+      display: block;
+      width: 100px;
+      height: 20px;
+    }
+    img {
+      width: 400px;
+      height: 400px;
+    }
+  </style>
+</head>
+<body>
+  <select name="" id="sel">
+      <option value="https://dss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=3892521478,1695688217&fm=26&gp=0">看风景</option>
+      <option value="https://dss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=1830914723,3154965800&fm=26&gp=0">看美女</option>
+      <option value="https://dss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1089874897,1268118658&fm=26&gp=0">看电视</option>
+  </select>
+  <img src="https://dss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=3892521478,1695688217&fm=26&gp=0.jpg" alt="" id="img">
+  <script>
+    let select = document.getElementById('sel')
+    let img = document.getElementById('img')
+    select.onchange = function() {
+      let val = select.value+ '.jpg';
+      img.src = val
+    }
+
+  </script>
+</body>
+</html>
