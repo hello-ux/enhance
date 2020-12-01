@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+      .container {
+        width: 40%;
+         height: 300px;
+         margin: 100px auto;
+      }
+      .tab {
+        overflow: hidden;
+      }
+      .tabNav {
+        list-style: none;
+        display: flex;
+        float: left;
+        width: 400px;
+      }
+      .tabNav li {
+        position: relative;
+        flex: 1;
+        height: 40px;
+        border: 1px solid #ccc;
+        border-right: none;
+        text-align: center;
+        line-height: 40px;
+        font-weight: 700;
+        font-size: 16px;
+        cursor: pointer;
+      }
+      .tabNav .del {
+          position: absolute;
+          right: 5px;
+          top: 50%;
+          margin-top: -10px;
+          width: 15px;
+          height: 15px;
+          border: 1px solid #999;
+          border-radius: 50%;
+          line-height: 13px;
+          font-weight: 400;
+          font-style: normal;
+          color: #999;
+          
+      }
+      .ipt {
+        width: 50%;
+        height: 100%;
+      }
+      .tabNav li:last-child {
+        border-right: 1px solid #ccc;
+      }
+      .tabNav li:hover {
+        background-color: #e4e4e4;
+      }
+      .tab .add {
+        float: left;
+        width: 40px;
+        height: 40px;
+        text-align: center;
+        line-height: 40px;
+        font-size: 18px;
+        border: 1px solid #ccc;
+        border-left: none;
+
+      }
+      .tab .add:hover {
+        background-color: #e4e4e4;
+      }
+      .tabContent {
+        width: 440px;
+        height: 300px;
+        background-color: rgba(0,0,0,0.4);
+        overflow: hidden;
+      }
+      .tabItem {
+        height: 100%;
+      }
+      
+  </style>
+</head>
+<body>
+  <div class="container">
+      <div class="tab">
+        <ul class="tabNav">
+          <li>
+            <span>Tab1</span>
+            <i class="del">x</i>
+          </li>
+          <li>
+            <span>Tab2</span>
+            <i class="del">x</i>
+          </li> 
+          <li>
+            <span>Tab3</span>
+            <i class="del">x</i>
+          </li>
+        </ul>
+        <div class="add">+</div>
+      </div>
+      <div class="tabContent">
+          <div class="tabItem">卡片1</div>
+          <div class="tabItem">卡片2</div>
+          <div class="tabItem">卡片3</div>
+      </div>
+  </div>
+  <script>
+    let ul = document.querySelector('.tabNav')
+    let lis = ul.children
+    let tabContent = document.querySelector('.tabContent')
+    let tabItems = document.querySelectorAll('.tabItem')
+    let add = document.querySelector('.add')
+    let del = document.querySelectorAll('.del')
+    let index = 0
+     // 点击切换tab栏
+     clickTab()
+     clickdel()
+    function clickTab() {
+      lis = ul.children
+      tabItems = tabContent.children
+      for(let i = 0; i < lis.length; i++) {
+        lis[i].setAttribute('index', i)
+          lis[i].onclick = function() {
+              for(var j = 0; j < tabItems.length; j++) {
+                tabItems[j].style.display = 'none' 
+              }
+              var id = this.getAttribute('index')
+              tabItems[id].style.display = 'block'
+        }
+        lis[i].ondblclick = function() {
+          let text = this.children[0].innerText;
+          this.innerHTML = `<input type="text" class="ipt" value="${text}"/>`
+          this.onblur = function() {
+          console.log(123);
+        }
+        }
+       
+        
+      }
+    }
+    // 添加tab
+    function getNum() {
+      lis = ul.children
+      return lis.length
+    }
+    add.onclick = function() {
+      let length = getNum()
+      if(length < 8) {
+        let li = document.createElement('li')
+        li.innerHTML = `<span>Tab${length + 1}</span><i class="del">x</i>`
+        ul.appendChild(li)
+        let div = document.createElement('div')
+        div.className = 'tabItem'
+        div.innerHTML = `卡片${length + 1}`
+        tabContent.appendChild(div)
+      }else {
+        return false
+      }
+      clickTab()
+      clickdel()
+    }
+   // 删除tab
+    function clickdel() {
+      lis = ul.children
+      tabItems = tabContent.children
+      del = document.querySelectorAll('.del')
+      console.log(del);
+      for(let k = 0; k < del.length; k++) {
+      del[k].onclick = function(e) {
+        console.log(k);
+            e.stopPropagation()
+         for(let j = 0; j < lis.length; j++) {
+           var id = lis[j].getAttribute('index') 
+           if(id == k) {
+             lis[j].remove()
+              tabItems[j].remove()
+              if(tabItems.length > 0) {
+                tabItems[id -1].style.display = 'block'
+              }
+           }
+         }
+            
+         clickTab() 
+      }
+    }
+    }
+    clickdel()
+    function blurHandle(e) {
+      console.log(e);
+    }
+  </script>
+</body>
+</html>

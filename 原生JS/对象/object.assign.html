@@ -10,6 +10,8 @@
     var obj = {
       'name': 'zhangsan',
       'age': 23,
+      "sex": '男',
+      
        'say': {
          'num': 100
        }
@@ -21,22 +23,17 @@
          'num': 100
        }
     }
-    var obj2 = {
-      'name': 'lisi',
-      'age': 23,
-      'sex': '男',
-      
+  
+  function objAssign(newobj, obj) {
+      if (obj && obj instanceof Object) {
+        for (key in obj) {
+          newobj[key] = obj[key]
+        }
+      }
+      return newobj
     }
-    // 拷贝的对象的引用，影响原对象
-    var objnew = Object.assign(obj)
-    console.log(objnew);
-    objnew.name = 'wangwu'
-    console.log(obj); // wangwu
-    console.log(objnew); // wangwu
-    Object.assign(obj1,obj2)
-    console.log(obj1);
-    console.log(obj2); // 不会拷贝Obj1里面的对象
-
+objAssign(obj,obj1)
+console.log(obj);
   </script>
 </body>
 </html>
