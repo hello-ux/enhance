@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		<div id="app">
+			<ipt-b :title='msg'></ipt-b>
+		</div>
+		<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+		<script>
+			var btnC = {
+				data() {
+					return {}
+				},
+				inject: ['txt'],
+				template: `
+					<button>组件B的子组件按钮----{{txt}}</button>
+				`
+			}
+			//子组件B
+			var iptB = {
+				props: ['title'],
+				data() {
+					return {
+						
+					}
+				},
+				// 获取父组件传值
+				inject: ['txt'],
+				created() {
+					console.log(this.title)
+				},
+				template: `
+					<div>
+						<input type="text" id="ipt"/>
+						<h3 class="hh">{{title}}</h3>
+						<button>点击---{{title}} --{{txt}}</button>
+						<btn-c></btn-c>
+					</div>
+				`,
+				methods: {
+					
+				},
+				components: {
+					'btn-c': btnC
+				}
+			}
+			// Vue.component('A', {
+				
+			// })
+			var vm = new Vue({
+				el: '#app',
+				data: {
+					msg: '你好'
+				},
+				// 向子组件注入依赖
+				provide: {
+					txt: 'APP组件的传递的值'
+				},
+				mounted() {
+					this.msg = '修改值'
+					//修改数据后获取的dom还是原始值，通过nextTick获取更新后的dom
+					this.$nextTick(function() {
+						var btn = document.querySelector('button').innerText
+						console.log(btn)
+					})
+				},
+				created() {
+					// dom还没有被渲染，获取不到ipt,ipt的值为null
+					// var ipt =document.getElementById('ipt')
+					// console.log(ipt)
+				},
+				components: {
+					"ipt-b": iptB
+				}
+			})
+		</script>
+	</body>
+</html>
